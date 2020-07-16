@@ -6,8 +6,8 @@ const ContentList = ({ content }) => {
     return <ContentItem key={cont.title} cont={cont} />;
   });
   return (
-    <div className="ui container">
-      <div className="ui stackable seven column grid">{renderedList}</div>;
+    <div className="ui container" style={{ marginTop: "1rem" }}>
+      <div className="ui stackable seven column grid">{renderedList}</div>
     </div>
   );
 };

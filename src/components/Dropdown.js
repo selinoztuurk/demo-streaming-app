@@ -20,19 +20,38 @@ const sortingOptions = [
 ];
 
 class Dropdown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = { open: false };
+  }
   onOptionChange = (event) => {
     this.props.onOptionChange(event);
   };
+
+  toggle() {
+    const currentState = this.state.open;
+    this.setState({ open: !currentState });
+  }
 
   render() {
     return (
       <div>
         <div className="ui form">
           <div className="field">
-            <div className="ui selection dropdown visible active">
+            <div
+              onClick={this.toggle}
+              className={`ui selection dropdown ${
+                this.state.open ? "visible active" : ""
+              }`}
+            >
               <i className="dropdown icon"></i>
               <div className="text">Sort By</div>
-              <div className="menu visible transition">
+              <div
+                className={`menu ${
+                  this.state.open ? "visible transition" : ""
+                }`}
+              >
                 <div
                   key={sortingOptions[0].value}
                   className="item"
