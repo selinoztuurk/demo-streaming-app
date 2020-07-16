@@ -2,9 +2,10 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import content from "../feed/sample.json";
 import ContentList from "./ContentList";
+import Dropdown from "./Dropdown";
 
 class App extends React.Component {
-  state = { content: [], errorMessage: "" };
+  state = { contentDisplay: [], option: "", errorMessage: "" };
 
   onTermSubmit = (term) => {
     const response = content.entries.filter((entry) => {
@@ -12,7 +13,7 @@ class App extends React.Component {
     });
     console.log(response);
     console.log(term);
-    this.setState({ content: response });
+    this.setState({ contentDisplay: response });
   };
 
   onTermChange = (term) => {
@@ -22,22 +23,70 @@ class App extends React.Component {
       });
       console.log(response);
       console.log(term);
-      this.setState({ content: response });
+      this.setState({ contentDisplay: response });
+    }
+  };
+
+  sortByTitle = (a, b) => {
+    var nameA = a.title.toUpperCase(); // ignore upper and lowercase
+    var nameB = b.title.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    // names must be equal
+    return 0;
+  };
+
+  sortByYear = (a, b) => {
+    var yearA = a.releaseYear;
+    var yearB = b.releaseYear;
+    if (yearA < yearB) {
+      return -1;
+    }
+    if (yearA > yearB) {
+      return 1;
+    }
+    return 0;
+  };
+
+  onOptionChange = (option) => {
+    if (option === "ya") {
+      const response = this.state.contentDisplay.sort(this.sortByYear);
+      this.setState({ contentDisplay: response });
+    } else if (option === "yd") {
+      const response = this.state.contentDisplay
+        .sort(this.sortByYear)
+        .reverse();
+      this.setState({ contentDisplay: response });
+    } else if (option === "ta") {
+      const response = this.state.contentDisplay.sort(this.sortByTitle);
+      this.setState({ contentDisplay: response });
+    } else if (option === "td") {
+      const response = this.state.contentDisplay
+        .sort(this.sortByTitle)
+        .reverse();
+      this.setState({ contentDisplay: response });
+    } else {
+      console.log(option);
     }
   };
 
   renderContent() {
-    if (this.state.errorMessage && this.state.content.length == 0) {
+    if (this.state.errorMessage && this.state.contentDisplay.length == 0) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
-    if (!this.state.errorMessage && this.state.content.length >= 0) {
+    if (!this.state.errorMessage && this.state.contentDisplay.length >= 0) {
       return (
         <div className="ui container">
           <SearchBar
             onFormSubmit={this.onTermSubmit}
             onInputChange={this.onTermChange}
           />
-          <ContentList content={this.state.content} />
+          <Dropdown onOptionChange={this.onOptionChange} />
+          <ContentList content={this.state.contentDisplay} />
         </div>
       );
     }
