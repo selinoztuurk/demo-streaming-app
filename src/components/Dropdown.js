@@ -34,10 +34,18 @@ class Dropdown extends React.Component {
     this.setState({ open: !currentState });
   }
 
+  active = () => {
+    if (this.props.title == "Titles") return "none";
+    else return "block";
+  };
+
   render() {
     return (
       <div>
-        <div className="ui form">
+        <div
+          className="ui form shadow-lg"
+          style={{ display: this.active(), marginTop: "1rem", width: "30%" }}
+        >
           <div className="field">
             <div
               onClick={this.toggle}

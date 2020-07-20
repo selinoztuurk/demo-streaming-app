@@ -1,0 +1,9 @@
+* {
+  border-radius: 0 !important;
+  font-family: "Montserrat";
+}
+
+.searchbar-dropdown-line {
+  display: flex;
+  justify-content: space-between;
+}

@@ -3,6 +3,11 @@ import React from "react";
 class SearchBar extends React.Component {
   state = { term: "" };
 
+  active = () => {
+    if (this.props.title == "Titles") return "none";
+    else return "block";
+  };
+
   onInputChange = (event) => {
     this.props.onInputChange(event.target.value);
     this.setState({ term: event.target.value });
@@ -15,7 +20,10 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div className="search-bar ui segment">
+      <div
+        className="searchbar shadow-lg"
+        style={{ display: this.active(), marginTop: "1rem", width: "30%" }}
+      >
         <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
             <input

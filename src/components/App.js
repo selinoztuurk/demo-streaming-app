@@ -4,6 +4,7 @@ import content from "../feed/sample.json";
 import initContent from "../feed/init.json";
 import ContentList from "./ContentList";
 import Dropdown from "./Dropdown";
+import UpperMenu from "./UpperMenu";
 
 class App extends React.Component {
   state = {
@@ -11,6 +12,7 @@ class App extends React.Component {
     option: "",
     errorMessage: "",
     programType: "",
+    title: "Titles",
   };
 
   onTermSubmit = (term) => {
@@ -93,12 +95,12 @@ class App extends React.Component {
       response = content.entries
         .filter((d) => d.programType == "movie")
         .slice(0, 21);
-      this.setState({ programType: "movie" });
+      this.setState({ programType: "movie", title: "Movies" });
     } else if (programType.props.cont.title == "Series") {
       response = content.entries
         .filter((d) => d.programType == "series")
         .slice(0, 21);
-      this.setState({ programType: "series" });
+      this.setState({ programType: "series", title: "Series" });
     }
     this.setState({ contentDisplay: response });
   };
@@ -109,16 +111,26 @@ class App extends React.Component {
     }
     if (!this.state.errorMessage && this.state.contentDisplay.length >= 0) {
       return (
-        <div className="ui container">
-          <SearchBar
-            onFormSubmit={this.onTermSubmit}
-            onInputChange={this.onTermChange}
-          />
-          <Dropdown onOptionChange={this.onOptionChange} />
-          <ContentList
-            content={this.state.contentDisplay}
-            onClick={this.onProgramTypeClick}
-          />
+        <div>
+          {" "}
+          <UpperMenu title={this.state.title} />
+          <div className="ui container">
+            <div className="searchbar-dropdown-line">
+              <SearchBar
+                onFormSubmit={this.onTermSubmit}
+                onInputChange={this.onTermChange}
+                title={this.state.title}
+              />
+              <Dropdown
+                onOptionChange={this.onOptionChange}
+                title={this.state.title}
+              />
+            </div>
+            <ContentList
+              content={this.state.contentDisplay}
+              onClick={this.onProgramTypeClick}
+            />
+          </div>
         </div>
       );
     }
