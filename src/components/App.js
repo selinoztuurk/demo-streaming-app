@@ -20,7 +20,7 @@ class App extends React.Component {
     const response = content.entries.filter((entry) => {
       return (
         entry.title.toLowerCase().includes(term.toLowerCase()) &&
-        entry.programType == this.state.programType
+        entry.programType === this.state.programType
       );
     });
     console.log(response);
@@ -33,7 +33,7 @@ class App extends React.Component {
       const response = content.entries.filter((entry) => {
         return (
           entry.title.toLowerCase().includes(term.toLowerCase()) &&
-          entry.programType == this.state.programType
+          entry.programType === this.state.programType
         );
       });
       console.log(response);
@@ -92,14 +92,14 @@ class App extends React.Component {
   onProgramTypeClick = (programType) => {
     console.log(programType.props.cont.title);
     var response;
-    if (programType.props.cont.title == "Movies") {
+    if (programType.props.cont.title === "Movies") {
       response = content.entries
-        .filter((d) => d.programType == "movie")
+        .filter((d) => d.programType === "movie")
         .slice(0, 21);
       this.setState({ programType: "movie", title: "Movies" });
-    } else if (programType.props.cont.title == "Series") {
+    } else if (programType.props.cont.title === "Series") {
       response = content.entries
-        .filter((d) => d.programType == "series")
+        .filter((d) => d.programType === "series")
         .slice(0, 21);
       this.setState({ programType: "series", title: "Series" });
     }
@@ -107,7 +107,7 @@ class App extends React.Component {
   };
 
   renderContent() {
-    if (this.state.errorMessage && this.state.contentDisplay.length == 0) {
+    if (this.state.errorMessage && this.state.contentDisplay.length === 0) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
     if (!this.state.errorMessage && this.state.contentDisplay.length >= 0) {

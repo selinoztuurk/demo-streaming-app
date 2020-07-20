@@ -35,7 +35,7 @@ class Dropdown extends React.Component {
   }
 
   active = () => {
-    if (this.props.title == "Titles") return "none";
+    if (this.props.title === "Titles") return "none";
     else return "block";
   };
 

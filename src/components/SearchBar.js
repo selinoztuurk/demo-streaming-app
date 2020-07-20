@@ -4,7 +4,7 @@ class SearchBar extends React.Component {
   state = { term: "" };
 
   active = () => {
-    if (this.props.title == "Titles") return "none";
+    if (this.props.title === "Titles") return "none";
     else return "block";
   };
 
