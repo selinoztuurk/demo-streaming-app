@@ -7,3 +7,38 @@
   display: flex;
   justify-content: space-between;
 }
+
+.down-menu {
+  background-color: black;
+  font-size: small;
+}
+
+.down-menu .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.d-flex img {
+  margin: 10px;
+  height: 40px;
+}
+
+.nav-item .nav-link {
+  color: gray;
+}
+
+.seperator {
+  padding-top: 7px;
+}
+
+.copyright {
+  color: gray;
+  margin-left: 8px;
+  margin-bottom: 50px;
+}
+
+.Titles {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

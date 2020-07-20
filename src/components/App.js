@@ -5,6 +5,7 @@ import initContent from "../feed/init.json";
 import ContentList from "./ContentList";
 import Dropdown from "./Dropdown";
 import UpperMenu from "./UpperMenu";
+import Footer from "./Footer";
 
 class App extends React.Component {
   state = {
@@ -131,6 +132,7 @@ class App extends React.Component {
               onClick={this.onProgramTypeClick}
             />
           </div>
+          <Footer title={this.state.title} />
         </div>
       );
     }
