@@ -1,15 +1,24 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 import content from "../feed/sample.json";
+import initContent from "../feed/init.json";
 import ContentList from "./ContentList";
 import Dropdown from "./Dropdown";
 
 class App extends React.Component {
-  state = { contentDisplay: [], option: "", errorMessage: "" };
+  state = {
+    contentDisplay: initContent,
+    option: "",
+    errorMessage: "",
+    programType: "",
+  };
 
   onTermSubmit = (term) => {
     const response = content.entries.filter((entry) => {
-      return entry.title.toLowerCase().includes(term.toLowerCase());
+      return (
+        entry.title.toLowerCase().includes(term.toLowerCase()) &&
+        entry.programType == this.state.programType
+      );
     });
     console.log(response);
     console.log(term);
@@ -19,7 +28,10 @@ class App extends React.Component {
   onTermChange = (term) => {
     if (term.length > 2) {
       const response = content.entries.filter((entry) => {
-        return entry.title.toLowerCase().includes(term.toLowerCase());
+        return (
+          entry.title.toLowerCase().includes(term.toLowerCase()) &&
+          entry.programType == this.state.programType
+        );
       });
       console.log(response);
       console.log(term);
@@ -74,6 +86,23 @@ class App extends React.Component {
     }
   };
 
+  onProgramTypeClick = (programType) => {
+    console.log(programType.props.cont.title);
+    var response;
+    if (programType.props.cont.title == "Movies") {
+      response = content.entries
+        .filter((d) => d.programType == "movie")
+        .slice(0, 21);
+      this.setState({ programType: "movie" });
+    } else if (programType.props.cont.title == "Series") {
+      response = content.entries
+        .filter((d) => d.programType == "series")
+        .slice(0, 21);
+      this.setState({ programType: "series" });
+    }
+    this.setState({ contentDisplay: response });
+  };
+
   renderContent() {
     if (this.state.errorMessage && this.state.contentDisplay.length == 0) {
       return <div>Error: {this.state.errorMessage}</div>;
@@ -86,7 +115,10 @@ class App extends React.Component {
             onInputChange={this.onTermChange}
           />
           <Dropdown onOptionChange={this.onOptionChange} />
-          <ContentList content={this.state.contentDisplay} />
+          <ContentList
+            content={this.state.contentDisplay}
+            onClick={this.onProgramTypeClick}
+          />
         </div>
       );
     }

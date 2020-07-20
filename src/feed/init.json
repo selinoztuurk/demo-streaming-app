@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Movies",
+    "images": {
+      "Poster Art": {
+        "url": "/assets/placeholder.png"
+      }
+    }
+  },
+  {
+    "title": "Series",
+    "images": {
+      "Poster Art": {
+        "url": "/assets/placeholder.png"
+      }
+    }
+  }
+]
