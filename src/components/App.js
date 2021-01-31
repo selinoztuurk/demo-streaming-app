@@ -97,13 +97,14 @@ class App extends React.Component {
         .filter((d) => d.programType === "movie")
         .slice(0, 21);
       this.setState({ programType: "movie", title: "Movies" });
+      this.setState({ contentDisplay: response });
     } else if (programType.props.cont.title === "Series") {
       response = content.entries
         .filter((d) => d.programType === "series")
         .slice(0, 21);
       this.setState({ programType: "series", title: "Series" });
+      this.setState({ contentDisplay: response });
     }
-    this.setState({ contentDisplay: response });
   };
 
   renderContent() {
